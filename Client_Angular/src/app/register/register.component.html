@@ -10,11 +10,50 @@
     </div>
 
     <div class="mb-3">
+        <input type="text" 
+            class="form-control" 
+            name="knownAs" 
+            [(ngModel)]="model.knownAs" 
+            placeholder="Known As">
+    </div>
+
+    <div class="mb-3">
+        <input type="date"
+            class="form-control" 
+            name="dateOfBirth" 
+            [(ngModel)]="model.dateOfBirth"
+            placeholder="Date of Birth">
+    </div>
+
+    <div class="mb-3">
+        <input type="text" 
+            class="form-control" 
+            name="city" 
+            [(ngModel)]="model.city" 
+            placeholder="City">
+    </div>
+
+    <div class="mb-3">
+        <input type="text" 
+            class="form-control" 
+            name="country" 
+            [(ngModel)]="model.country" 
+            placeholder="Country">
+    </div>
+
+    <div class="mb-3">
         <input type="password" 
             class="form-control" 
             name="password" 
             [(ngModel)]="model.password" 
             placeholder="Password">
+    </div>
+
+    <div class="mb-3">
+        <input type="password" 
+            class="form-control" 
+            name="password" 
+            placeholder="Confirm Password">
     </div>
     <div class="form-group text-center">
         <button class="btn btn-success me-2" type="submit">Register</button>
