@@ -14,7 +14,9 @@ export class NavComponent implements OnInit{
   constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
+    if(localStorage.getItem('user') != null && this.router.url == ''){
+      this.router.navigateByUrl('members');
+    }
   }
 
   login() {
