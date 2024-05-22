@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   registerMode = false;
-  users: any;
 
-
-  constructor(){
+  constructor(private router: Router){
 
   }
   ngOnInit(): void {
+    if(localStorage.getItem('user')) this.router.navigateByUrl('members');
   }
 
   registerToggle(){

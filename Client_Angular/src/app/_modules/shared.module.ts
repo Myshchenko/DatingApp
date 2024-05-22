@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { TabsModule } from 'ngx-bootstrap/tabs'
-import { GalleryModule } from 'ng-gallery';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -17,11 +17,13 @@ import { GalleryModule } from 'ng-gallery';
       positionClass: 'toast-bottom-right',
       maxOpened: 3
     }),
+    BsDatepickerModule.forRoot(),
   ],
   exports: [
     BsDropdownModule,
     ToastrModule,
-    TabsModule
+    TabsModule,
+    BsDatepickerModule
   ]
 })
 export class SharedModule { }
