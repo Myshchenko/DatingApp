@@ -9,11 +9,17 @@ namespace API.DTOs
         [Required]
         [StringLength(25, MinimumLength = 4)]
         public string Password { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        [Required]
+        public DateOnly? DateOfBirth { get; set; }
+        [Required]
         public string KnownAs { get; set; }
+        [Required]
         public DateTime Created { get; set; } = DateTime.UtcNow;
+        [Required]
         public string Gender { get; set; }
+        [Required]
         public string City { get; set; }
+        [Required]
         public string Country { get; set; }
     }
 }
