@@ -49,17 +49,13 @@ export class MembersService {
 
   private getPaginationHeaders(pageNumber: number, pageSize: number) {
     let params = new HttpParams();
-
-    var userJson = localStorage.getItem('user');
-    var user: User;
-    if (userJson) {
-      user = JSON.parse(userJson) as User;
-      params = params.append('username', user.username);
-    }
-
-      params = params.append('pageNumber', pageNumber);
-      params = params.append('pageSize', pageSize);
-
+    
+    params = params.append('pageNumber', pageNumber);
+    params = params.append('pageSize', pageSize);
     return params;
+  }
+
+  updateMember(member : Member){
+    return this.http.put(this.baseUrl + 'users', member);
   }
 }
