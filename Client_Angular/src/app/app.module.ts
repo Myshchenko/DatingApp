@@ -20,6 +20,7 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DatePickerComponent } from './_forms/date-picker/date-picker.component'
     ServerErrorComponent,
     MemberCardComponent,
     TextInputComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
