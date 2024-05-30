@@ -5,6 +5,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 
@@ -19,14 +20,16 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
       maxOpened: 3
     }),
     BsDatepickerModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    FileUploadModule
   ],
   exports: [
     BsDropdownModule,
     ToastrModule,
     TabsModule,
     BsDatepickerModule,
-    PaginationModule
+    PaginationModule,
+    FileUploadModule
   ]
 })
 export class SharedModule { }
