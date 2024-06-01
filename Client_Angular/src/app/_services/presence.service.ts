@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { BehaviorSubject } from 'rxjs';
@@ -14,15 +13,10 @@ export class PresenceService {
   private onlineUsersSource = new BehaviorSubject<string[]> ([]);
   onlineUsers$ = this.onlineUsersSource.asObservable();
 
-  constructor(private toastr : ToastrService) {
-
-    console.log('PRESENCE SERVICE CREATED')
+  constructor() {
    }
 
   createHubConnection(user : User){
-    console.log('Starting connection with HUB..')
-
-
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.hubUrl + 'presence', {
         accessTokenFactory: () => user.token
@@ -46,6 +40,4 @@ export class PresenceService {
   stopHubConnection (){
     this.hubConnection?.stop().catch(error => console.log(error));
   }
-
-
 }
