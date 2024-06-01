@@ -32,17 +32,10 @@
       </form>
     </div>
 
-    <div class="text-center me-3 ms-0">
-      <ng-container *ngIf="onlineUsersCount$ | async as count; else noOnline">
-        <p class="online-count">Currently in the system</p>
-        <p class="online-count"><span style="color: rgb(0, 255, 55); font-size: medium; margin: 0;">{{ count }}</span></p>
-        <p class="online-count">active users</p>
-      </ng-container>
-      <ng-template #noOnline>
-        <p class="online-count">Currently in the system</p>
-        <p class="online-count"><span style="color: rgb(0, 255, 55); font-size: medium; margin: 0;">0</span></p>
-        <p class="online-count">active users</p>
-      </ng-template>
+    <div class="text-center me-3 ms-0" *ngIf="onlineUsersCount$ | async as count">
+      <p class="online-count">Currently in the system</p>
+      <p class="online-count"><span style="color: rgb(0, 255, 55); font-size: medium; margin: 0;">{{count}}</span></p>
+      <p class="online-count">active users</p>
     </div>
 </nav>
 
