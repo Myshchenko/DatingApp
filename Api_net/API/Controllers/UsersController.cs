@@ -27,7 +27,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var currentUser = await _userRepository.GetUserByUsernameAsync(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var currentUser = await _userRepository.GetUserByUsernameAsync(User.FindFirst(ClaimTypes.Name)?.Value);
             userParams.CurrentUsername = currentUser.UserName;
 
             if (string.IsNullOrEmpty(userParams.Gender))
