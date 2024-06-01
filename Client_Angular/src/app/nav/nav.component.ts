@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { PresenceService } from '../_services/presence.service';
+import { Observable, map } from 'rxjs';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-nav',
@@ -10,13 +13,19 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavComponent implements OnInit{
   model : any = {};
+  onlineUsersCount$: Observable<number> | undefined;
 
-  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
+  constructor(public accountService: AccountService, private router: Router,
+    private toastr: ToastrService, public presenceService: PresenceService ) {
+     }
 
   ngOnInit(): void {
     if(localStorage.getItem('user') != null && this.router.url == ''){
       this.router.navigateByUrl('members');
     }
+    this.onlineUsersCount$ = this.presenceService.onlineUsers$.pipe(
+      map(users => users ? Object.keys(users).length : 0)
+    );
   }
 
   login() {
@@ -31,5 +40,4 @@ export class NavComponent implements OnInit{
     this.accountService.logout();
     this.router.navigateByUrl('/');
   }
-
 }

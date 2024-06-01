@@ -7,3 +7,10 @@ img{
     border: 2px solid white;
     display: inline;
 }
+
+.online-count{
+    margin: 0;
+    font-size: small;
+    font-weight: bold;
+    color: white;
+}

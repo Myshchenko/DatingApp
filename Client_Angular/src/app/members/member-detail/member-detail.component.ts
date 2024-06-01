@@ -6,6 +6,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimeagoModule, TimeagoPipe } from 'ngx-timeago';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
+import { PresenceService } from 'src/app/_services/presence.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -18,7 +19,7 @@ export class MemberDetailComponent implements OnInit {
   member: Member | undefined;
   images: GalleryItem[] = []
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute) {
+  constructor(private memberService: MembersService, private route: ActivatedRoute, public presenceService: PresenceService) {
 
   }
 
