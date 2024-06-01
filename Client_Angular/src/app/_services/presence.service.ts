@@ -37,6 +37,20 @@ export class PresenceService {
     })
   }
 
+  createAnonymousHubConnection(){
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl(this.hubUrl + 'presence', {
+      })
+      .withAutomaticReconnect()
+      .build();
+
+    this.hubConnection.start().catch(error => console.log(error))
+
+    this.hubConnection.on('GetOnlineUsers', usernames => {
+      this.onlineUsersSource.next(usernames);
+    })
+  }
+
   stopHubConnection (){
     this.hubConnection?.stop().catch(error => console.log(error));
   }

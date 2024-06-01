@@ -39,12 +39,18 @@ export class AccountService {
   SetCurrentUser(user: User){
     localStorage.setItem('user',JSON.stringify(user));
     this.currentUserSource.next(user);
+    this.presenceService.stopHubConnection();
     this.presenceService.createHubConnection(user);
+  }
+
+  AnonymousConnectionHub(){
+    this.presenceService.createAnonymousHubConnection();
   }
 
   logout(){
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
     this.presenceService.stopHubConnection();
+    this. AnonymousConnectionHub();
   }
 }
