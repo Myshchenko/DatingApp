@@ -29,7 +29,7 @@ namespace API.Data.Migrations
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Country")
+                    b.Property<string>("PhotoUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
