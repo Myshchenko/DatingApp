@@ -23,7 +23,7 @@ namespace API.Data.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Country",
+                name: "PhotoUrl",
                 table: "Users",
                 type: "TEXT",
                 nullable: true);
@@ -118,7 +118,7 @@ namespace API.Data.Migrations
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "Country",
+                name: "PhotoUrl",
                 table: "Users");
 
             migrationBuilder.DropColumn(
