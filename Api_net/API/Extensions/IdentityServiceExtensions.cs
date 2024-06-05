@@ -15,6 +15,9 @@ namespace API.Extensions
             {
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireDigit = false;
+                opt.Password.RequiredLength = 4;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireLowercase = false;
             })
                 .AddRoles<AppRole>()
                 .AddRoleManager<RoleManager<AppRole>>()
