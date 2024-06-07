@@ -20,6 +20,7 @@ export class ListsComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadLikes();
+    this.memberService.getLikedUsernames();
   }
 
   loadLikes(){
@@ -36,5 +37,9 @@ export class ListsComponent implements OnInit{
       this.pageNumber = event.page;
       this.loadLikes();
     }
+  }
+
+  isLiked(username: string) : boolean{
+    return this.memberService.likedUsernames.includes(username.toLowerCase());
   }
 }

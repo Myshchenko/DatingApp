@@ -54,5 +54,23 @@ namespace API.Controllers
 
             return Ok(users);
         }
+        [HttpGet("allLiked")]
+        public async Task<ActionResult<List<string>>> GetUsernamesOfLiked()
+        {
+            return await _likesRepository.GetLikedUsernames(User.GetUserId());
+        }
+        [HttpDelete("{targetUsername}")]
+        public async Task<ActionResult> DeleteLike(string targetUsername)
+        {
+            var sourceUserId = User.GetUserId();
+            var targetUserId = await _userRepository.GetUserByUsernameAsync(targetUsername);
+            var like = await _likesRepository.GetUserLike(sourceUserId, targetUserId.Id);
+            if (like != null)
+            {
+                await _likesRepository.DeleteLike(like);
+                return Ok();
+            }
+            return BadRequest("There is no like on that user");
+        }
     }
 }

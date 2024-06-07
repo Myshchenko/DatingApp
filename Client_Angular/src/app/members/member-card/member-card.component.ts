@@ -15,9 +15,25 @@ export class MemberCardComponent {
   constructor(public presenceService: PresenceService, private membersService: MembersService, private toastr : ToastrService) {
   }
 
+  isLiked(username: string) : boolean{
+    return this.membersService.likedUsernames.includes(username.toLowerCase());
+  }
+
   addLike(member : Member){
     this.membersService.addLike(member.userName).subscribe({
-      next: () => this.toastr.success('You have liked ' + member.knownAs)
+      next: () => {
+        this.toastr.success('You have liked ' + member.knownAs);
+        this.membersService.likedUsernames.push(member.userName);
+      }
+    })
+  }
+
+  deleteLike(member : Member){
+    this.membersService.deleteLike(member.userName).subscribe({
+      next: () => {
+        this.toastr.success('The like has been removed for ' + member.knownAs);
+        this.membersService.getLikedUsernames();
+      }
     })
   }
 }
