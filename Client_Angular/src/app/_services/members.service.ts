@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
 import { PaginatedResult } from '../_models/pagination';
@@ -10,12 +10,18 @@ import { UserParams } from '../_models/userParams';
 @Injectable({
   providedIn: 'root'
 })
-export class MembersService {
+export class MembersService implements OnInit{
   baseUrl = environment.apiUrl;
   paginatedResult: PaginatedResult<Member[]> = new PaginatedResult<Member[]>;
+  likedUsernames: string[] = [];
   
 
   constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.getLikedUsernames();
+    console.log()
+  }
 
   getMember(username: string){
     return this.http.get<Member>(this.baseUrl + 'users/'+ username)
@@ -78,5 +84,13 @@ export class MembersService {
     let params = this.getPaginationHeaders(pageNumber, pageSize);
     params = params.append('predicate', predicate);
     return this.getPaginatedResult<Member[]>(this.baseUrl + 'likes', params);
+  }
+  getLikedUsernames(){
+    return this.http.get<string[]>(this.baseUrl + 'likes/allLiked', {}).subscribe({
+      next: responce => this.likedUsernames = responce
+    })
+  }
+  deleteLike(username : string){
+    return this.http.delete(this.baseUrl + 'likes/' + username, {});
   }
 }
