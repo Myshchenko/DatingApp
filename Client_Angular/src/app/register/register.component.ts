@@ -13,11 +13,13 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   registerForm : FormGroup = new FormGroup({});
   maxDate: Date = new Date();
+  minDate: Date = new Date();
   validationErrors: string[] | undefined;
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
               private router: Router, private fb: FormBuilder){
                 this.maxDate?.setFullYear(this.maxDate.getFullYear()-18);
+                this.minDate?.setFullYear(this.minDate.getFullYear()-150);
   }
 
   ngOnInit(): void {
