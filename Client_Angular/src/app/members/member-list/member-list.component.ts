@@ -23,8 +23,7 @@ export class MemberListComponent implements OnInit{
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => {
         if (user){
-          this.userParams = new UserParams(user);
-          console.log(this.userParams);  
+          this.userParams = new UserParams(user);  
           this.user = user; 
         }
       }

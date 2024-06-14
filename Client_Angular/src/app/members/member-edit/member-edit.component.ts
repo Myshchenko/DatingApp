@@ -23,6 +23,8 @@ export class MemberEditComponent implements OnInit{
   }
   member: Member | undefined;
   user: User | null = null;
+
+  private regex? = /^[A-Za-z -]+$/;
   
   constructor(private accountService: AccountService, private memberService: MembersService,
     private toastr: ToastrService, public presenceService : PresenceService) {
@@ -48,6 +50,12 @@ export class MemberEditComponent implements OnInit{
       this.toastr.error("You cant leave blank field about your country or city");
       return;
     }
+
+    if(!this.regex?.test(this.member.city) || !this.regex.test(this.member.country)){
+      this.toastr.error("Country or city can contain only letters, space or '-'");
+      return;
+    }
+
     this.memberService.updateMember(this.editForm?.value).subscribe({
       next: _ => {
         this.toastr.success('Profile updated successfully');
