@@ -44,6 +44,10 @@ export class MemberEditComponent implements OnInit{
   }
 
   updateMember(){
+    if(!this.member?.city || !this.member.country){
+      this.toastr.error("You cant leave blank field about your country or city");
+      return;
+    }
     this.memberService.updateMember(this.editForm?.value).subscribe({
       next: _ => {
         this.toastr.success('Profile updated successfully');
