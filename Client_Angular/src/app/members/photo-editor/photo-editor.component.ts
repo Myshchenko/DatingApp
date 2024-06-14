@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PhotoEditorComponent implements OnInit {
   @Input() member : Member | undefined;
+  @ViewChild('fileInput', { static: false }) fileInput: any;
   uploader: FileUploader | undefined;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
@@ -81,5 +82,8 @@ export class PhotoEditorComponent implements OnInit {
         }
       }
     })
+  }
+  triggerFileInput() {
+    this.fileInput.nativeElement.click();
   }
 }

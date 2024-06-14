@@ -5,3 +5,8 @@
 input[type=file] {
     color: transparent;
 }
+
+.selectPhoto {
+    flex: 1;
+    width:100%;
+}
