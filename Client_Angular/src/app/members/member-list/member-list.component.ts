@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
@@ -19,12 +20,11 @@ export class MemberListComponent implements OnInit{
   user : User | undefined;
   genderList = [{value: 'male', display: 'Males'}, {value: 'female', display: 'Females'}]
 
-  constructor(private memberService: MembersService, private accountService : AccountService) {
+  constructor(private memberService: MembersService, private accountService : AccountService, private toastr : ToastrService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => {
         if (user){
-          this.userParams = new UserParams(user);
-          console.log(this.userParams);  
+          this.userParams = new UserParams(user);  
           this.user = user; 
         }
       }
@@ -37,15 +37,29 @@ export class MemberListComponent implements OnInit{
   }
 
   loadMembers(){
-    if(!this.userParams) return;
+    if(this.checkUserAgeFilterParams()){
+      if(!this.userParams) return;
     this.memberService.getMembers(this.userParams).subscribe({
-      next: response => {
-        if (response.result && response.pagination){
-          this.members = response.result;
-          this.pagination = response.pagination;
+        next: response => {
+          if (response.result && response.pagination){
+            this.members = response.result;
+            this.pagination = response.pagination;
+          }
         }
-      }
-    })
+      })
+    }
+
+    
+  }
+
+  checkUserAgeFilterParams(){
+    if(this.userParams!.minAge < 18 || this.userParams!.maxAge > 150
+      || this.userParams!.minAge >= this.userParams!.maxAge
+    ){
+      this.toastr.error("Invalid 'Age from' or 'Age to', try correct values...")
+      return false;
+    }
+    return true;
   }
 
   resetFilters(){

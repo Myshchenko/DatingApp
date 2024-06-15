@@ -19,9 +19,14 @@ export class ListsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.loadLikes();
     this.memberService.getLikedUsernames();
+    this.loadLikes();
   }
+
+  onDelete(username: string) {
+    const member = this.members?.find(members => members.userName === username)
+    this.members = this.members?.filter(m => m != member)
+}
 
   loadLikes(){
     this.memberService.getLikes(this.predicate, this.pageNumber, this.pageSize).subscribe({

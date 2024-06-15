@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { TabDirective, TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { TimeagoModule, TimeagoPipe } from 'ngx-timeago';
+import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
 import { PresenceService } from 'src/app/_services/presence.service';
@@ -30,7 +31,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   user?: User;
 
   constructor(private accountService: AccountService, private route: ActivatedRoute,
-    public presenceService: PresenceService, private messageService: MessageService) {
+    public presenceService: PresenceService, private messageService: MessageService,
+    private membersService: MembersService, private toastr : ToastrService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => {
           if(user) this.user = user;
@@ -75,7 +77,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
       }))
     }
   }
-
+  
   loadMessages(){
     if(this.member?.userName){
       this.messageService.getMessageThread(this.member.userName).subscribe({
@@ -88,5 +90,27 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.messageService.stopHubConnection();
+  }
+
+  addLike(member : Member){
+    this.membersService.addLike(member.userName).subscribe({
+      next: () => {
+        this.toastr.success('You have liked ' + member.knownAs);
+        this.membersService.likedUsernames.push(member.userName);
+      }
+    })
+  }
+
+  deleteLike(member : Member){
+    this.membersService.deleteLike(member.userName).subscribe({
+      next: () => {
+        this.toastr.success('The like has been removed for ' + member.knownAs);
+        this.membersService.getLikedUsernames();
+      }
+    })
+  }
+
+  isLiked(username: string) : boolean{
+    return this.membersService.likedUsernames.includes(username.toLowerCase());
   }
 }

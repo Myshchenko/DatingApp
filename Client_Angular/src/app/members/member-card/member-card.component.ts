@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
@@ -11,6 +11,7 @@ import { PresenceService } from 'src/app/_services/presence.service';
 })
 export class MemberCardComponent {
   @Input() member: Member | undefined;
+  @Output() onDelete = new EventEmitter<String>();
 
   constructor(public presenceService: PresenceService, private membersService: MembersService, private toastr : ToastrService) {
   }
@@ -35,5 +36,6 @@ export class MemberCardComponent {
         this.membersService.getLikedUsernames();
       }
     })
+    this.onDelete.emit(member.userName);
   }
 }
