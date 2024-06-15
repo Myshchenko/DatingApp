@@ -3,7 +3,7 @@ import { User } from "./user";
 export class UserParams{
     gender: string;
     minAge: number = 18;
-    maxAge: number = 99;
+    maxAge: number = 150;
     pageNumber: number = 1;
     pageSize: number = 12;
     orderBy = 'lastActive';
