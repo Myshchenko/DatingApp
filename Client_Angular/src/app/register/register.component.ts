@@ -34,8 +34,8 @@ export class RegisterComponent implements OnInit {
       gender: ['male'],
       knownAs: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
+      city: ['', [Validators.required, Validators.pattern('^[A-Za-z -]+$')]],
+      country: ['', [Validators.required, Validators.pattern('^[A-Za-z -]+$')]],
     });
 
     this.registerForm.controls['password'].valueChanges.subscribe({
