@@ -67,7 +67,7 @@ namespace API.Controllers
         {
             var currentUsername = User.GetUsername();
 
-            return Ok(await _messageRepository.GetMessageThread(currentUsername, username));
+            return Ok(await _messageRepository.GetMessageThread(username, currentUsername));
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteMessage(int id)
