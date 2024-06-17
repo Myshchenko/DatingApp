@@ -56,6 +56,7 @@ export class MessageService {
   }
 
   async sendMessage(username: string, content: string){
+    if(content === null || content.match(/^ *$/) !== null) return;
     return this.hubConnection?.invoke('SendMessage', { recipientUsername: username, content })
         .catch(error => console.log(error));
   }
