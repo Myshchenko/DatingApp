@@ -14,7 +14,7 @@
         </button>
 </div>
 
-<div class="row mt-3" *ngIf="messages && messages.length === 0">
+<div class="row mt-3" *ngIf="pagination && pagination.totalItems === 0">
     <h3>No messages</h3>
 </div>
 
@@ -55,7 +55,7 @@
     </table>
 </div>
 
-<div class="d-flex justify-content-center mt-3" *ngIf="!loading && pagination && messages && messages.length > 0">
+<div class="d-flex justify-content-center mt-3" *ngIf="!loading && pagination && messages && pagination.totalPages > 1">
     <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" previousText="&lsaquo;" nextText="&rsaquo;"
                 firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="pagination.itemsPerPage" [maxSize]="10"
                 [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)">
